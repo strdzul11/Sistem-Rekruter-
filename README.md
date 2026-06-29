@@ -1,58 +1,149 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Rekruter - Sistem Rekrutmen & Penilaian Pelamar (SAW & Google Calendar Integration)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Rekruter** adalah platform manajemen rekrutmen terintegrasi yang dirancang untuk merampingkan proses seleksi kandidat secara profesional. Sistem ini menyediakan alur kerja yang mudah digunakan bagi **Admin**, **HRD**, dan **Pelamar**, dilengkapi dengan sistem penilaian otomatis berbasis metode **Simple Additive Weighting (SAW)**, integrasi **Google Calendar** untuk penjadwalan interview, pengiriman surat otomatis berformat **PDF**, serta fitur **Quick Apply** tanpa login bagi pelamar cepat.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🌟 Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Sistem Perankingan Metode SAW (Simple Additive Weighting)
+* **Kriteria Dinamis & Terbobot**: Mendukung penilaian berdasarkan kriteria default seperti *Pendidikan* (20%), *Pengalaman Kerja* (25%), *Keterampilan Teknis* (30%), *Komunikasi* (15%), dan *Kepribadian* (10%).
+* **Normalisasi Otomatis**: Menghitung matriks keputusan ternormalisasi secara *real-time* berdasarkan nilai tertinggi setiap kriteria.
+* **Perankingan Real-time**: Mengurutkan pelamar berdasarkan skor preferensi SAW tertinggi untuk membantu HRD mengambil keputusan objektif.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2. Integrasi Google Calendar & Self-Scheduling
+* **Jadwal Interaktif**: HRD dapat membuat opsi slot waktu interview langsung dari panel sistem.
+* **Penjadwalan Mandiri**: Pelamar dapat memilih slot waktu interview sendiri sesuai ketersediaan mereka.
+* **Sinkronisasi Otomatis**: Integrasi penuh dengan Google Calendar API menggunakan Google OAuth 2.0 untuk menyisipkan jadwal secara otomatis ke kalender HRD maupun pelamar.
 
-## Learning Laravel
+### 3. Quick Apply & Lacak Status Tanpa Login
+* **Pendaftaran Cepat**: Pelamar dapat melamar lowongan pekerjaan secara instan tanpa perlu registrasi akun terlebih dahulu.
+* **Token Akses Unik**: Setelah melamar, pelamar menerima token unik melalui email/halaman sukses yang dapat digunakan untuk:
+  * Memantau perkembangan status aplikasi lamaran.
+  * Memilih slot interview yang dijadwalkan oleh HRD.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 4. Surat Undangan & Penawaran PDF Otomatis
+* **Template Surat Dinamis**: Admin dapat mengelola dan membuat template surat undangan interview, penerimaan (*offering letter*), atau penolakan dengan placeholder variabel dinamis.
+* **Unduh PDF**: HRD dapat secara instan menerbitkan dan mengunduh surat berformat PDF menggunakan modul `barryvdh/laravel-dompdf`.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 5. Manajemen Sistem & Keamanan (Panel Admin)
+* **Manajemen User & Role**: Pengelolaan data pengguna beserta hak akses (Admin, HRD, Pelamar).
+* **Backup & Restore**: Modul untuk melakukan backup database secara manual dan otomatis, serta melakukan pemulihan (*restore*) langsung dari aplikasi.
+* **Audit Logs**: Sistem log aktivitas yang merekam setiap tindakan sensitif yang dilakukan oleh pengguna untuk keperluan keamanan dan audit.
+* **Konfigurasi SMTP**: Pengaturan pengiriman email sistem beserta utilitas uji coba koneksi SMTP.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## 🛠️ Teknologi yang Digunakan
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+* **Backend**: Laravel framework (versi terbaru, didukung PHP >= 8.3)
+* **Database**: MySQL / MariaDB (mendukung SQLite untuk testing)
+* **Frontend**: Tailwind CSS & Vanilla JavaScript
+* **Build Tools**: Vite & NPM
+* **Libraries Utama**:
+  * `barryvdh/laravel-dompdf` (Generasi dokumen PDF)
+  * `google/apiclient` (Integrasi Google OAuth & Google Calendar API)
+  * `laravel/breeze` (Autentikasi dasar dan starter layout)
 
-```bash
-composer require laravel/boost --dev
+---
 
-php artisan boost:install
-```
+## 🔑 Akun Bawaan (Default Credentials)
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Jalankan seeder bawaan untuk menggunakan akun-akun uji coba berikut:
 
-## Contributing
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Administrator** | `admin@clarajob.co.id` | `password` |
+| **HR Manager** | `hr@clarajob.co.id` | `password` |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🚀 Panduan Instalasi & Setup
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 1. Prasyarat Sistem
+* PHP >= 8.3
+* Composer
+* Node.js & NPM
+* MySQL / MariaDB
 
-## Security Vulnerabilities
+### 2. Langkah-Langkah Instalasi
+1. **Clone Repositori**:
+   ```bash
+   git clone https://github.com/strdzul11/sistem-rekruter-.git
+   cd sistem-rekruter-
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. **Instal Dependensi PHP**:
+   ```bash
+   composer install
+   ```
 
-## License
+3. **Salin File Konfigurasi**:
+   ```bash
+   copy .env.example .env
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. **Konfigurasi Database & SMTP**:
+   Buka file `.env` dan sesuaikan koneksi database Anda:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=rekruter
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+5. **Generate Application Key**:
+   ```bash
+   php artisan key:generate
+   ```
+
+6. **Jalankan Migrasi & Database Seeder**:
+   ```bash
+   php artisan migrate --seed
+   ```
+
+7. **Instal Dependensi Frontend & Compile Aset**:
+   ```bash
+   npm install
+   npm run build
+   ```
+
+8. **Jalankan Aplikasi**:
+   ```bash
+   php artisan serve
+   ```
+   Aplikasi dapat diakses melalui browser di: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+---
+
+## 📅 Konfigurasi Google Calendar API
+
+Agar integrasi penjadwalan interview berfungsi, Anda perlu mengaktifkan Google Calendar API di Google Cloud Console:
+
+1. Buka [Google Cloud Console](https://console.cloud.google.com/).
+2. Buat project baru dan aktifkan **Google Calendar API**.
+3. Buka menu **Credentials** dan buat **OAuth 2.0 Client ID**.
+4. Tambahkan URI pengalihan berikut pada **Authorized redirect URIs**:
+   ```text
+   http://127.0.0.1:8000/calendar/google/callback
+   ```
+5. Salin Client ID dan Client Secret yang didapat, lalu masukkan ke dalam file `.env`:
+   ```env
+   GOOGLE_CLIENT_ID=isi_client_id_anda
+   GOOGLE_CLIENT_SECRET=isi_client_secret_anda
+   GOOGLE_REDIRECT_URI=http://127.0.0.1:8000/calendar/google/callback
+   ```
+
+---
+
+## 📂 Struktur Direktori Proyek
+
+* `app/` - Logika inti aplikasi (Model, Controller, Service, Middleware, Mail, Jobs).
+* `database/` - Migrasi, database seeders, dan factories.
+* `resources/` - Aset frontend (CSS, JS) dan file template blade view.
+* `routes/` - Pengaturan routing aplikasi (`web.php`, `auth.php`, `console.php`).
+* `legacy/` - Kumpulan berkas kode php legacy yang berisi dokumentasi sistem awal serta skrip migrasi SQL lama.
+* `public/` - Direktori root publik server web yang berisi file `index.php` dan aset statis terkompilasi.
+
