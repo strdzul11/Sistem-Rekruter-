@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# Redirect to login if accessing root without being logged in
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^$ auth/login.php [L]
+
+# Security: Deny direct browser access to sensitive files
+<Files "*.sql">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Deny direct access to config and includes directories via browser
+RewriteRule ^config/ - [F,L]
+RewriteRule ^includes/ - [F,L]
