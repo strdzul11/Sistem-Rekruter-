@@ -35,16 +35,14 @@
                                     <td class="py-3 font-mono text-xs">{{ $backup['filename'] }}</td>
                                     <td class="py-3">{{ number_format($backup['size'] / 1024, 1) }} KB</td>
                                     <td class="py-3">{{ $backup['created_at'] }}</td>
-                                    <td class="py-3 text-right space-x-2">
-                                        <form method="POST" action="{{ route('admin.backups.restore') }}" class="inline" onsubmit="return confirm('Yakin restore dari backup ini? Data saat ini akan ditimpa!')">
-                                            @csrf
-                                            <input type="hidden" name="filename" value="{{ $backup['filename'] }}">
-                                            <button type="submit" class="text-emerald-600 font-semibold hover:text-emerald-800"><i class="fas fa-undo mr-1"></i>Restore</button>
-                                        </form>
-                                        <form method="POST" action="{{ route('admin.backups.destroy', $backup['filename']) }}" class="inline" onsubmit="return confirm('Hapus file backup ini?')">
-                                            @csrf @method('DELETE')
-                                            <button type="submit" class="text-red-600 font-semibold hover:text-red-800"><i class="fas fa-trash mr-1"></i>Hapus</button>
-                                        </form>
+                                    <td class="py-3 text-right">
+                                        <x-action-menu>
+                                            <x-action-item method="POST" :action="route('admin.backups.restore')" confirm="Yakin restore dari backup ini? Data saat ini akan ditimpa!" icon="fas fa-undo">
+                                                <input type="hidden" name="filename" value="{{ $backup['filename'] }}">
+                                                Restore
+                                            </x-action-item>
+                                            <x-action-item method="DELETE" :action="route('admin.backups.destroy', $backup['filename'])" confirm="Hapus file backup ini?" icon="fas fa-trash" danger>Hapus</x-action-item>
+                                        </x-action-menu>
                                     </td>
                                 </tr>
                             @empty

@@ -75,13 +75,11 @@
                                             {{ $app->evaluations->count() > 0 ? 'Sudah Dinilai (' . $app->evaluations->count() . ')' : 'Belum Dinilai' }}
                                         </span>
                                     </td>
-                                    <td class="py-4 px-6 text-right space-x-2">
-                                        <button type="button" @click="fetchPreview('{{ route('admin.evaluations.preview', $app) }}')" class="text-gray-500 hover:text-gray-700 font-semibold text-sm">
-                                            <i class="fas fa-eye mr-1"></i>Preview
-                                        </button>
-                                        <a href="{{ route('admin.evaluations.show', $app->id) }}" class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3 py-1.5 rounded-md transition duration-200">
-                                            Beri Nilai &rarr;
-                                        </a>
+                                    <td class="py-4 px-6 text-right">
+                                        <x-action-menu>
+                                            <x-action-item onclick="fetchPreview('{{ route('admin.evaluations.preview', $app) }}')" icon="fas fa-eye">Preview</x-action-item>
+                                            <x-action-item :href="route('admin.evaluations.show', $app->id)" icon="fas fa-star">Beri Nilai</x-action-item>
+                                        </x-action-menu>
                                     </td>
                                 </tr>
                             @endforeach

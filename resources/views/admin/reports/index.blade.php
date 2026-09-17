@@ -5,21 +5,80 @@
         </h2>
     </x-slot>
 
+    {{-- CSS Print khusus halaman laporan --}}
+    @push('scripts')
+    <style>
+        @media print {
+            /* Header cetak: tampilkan judul laporan */
+            .print-header { display: block !important; }
+
+            /* Konten laporan mengisi penuh lebar halaman */
+            .report-wrapper {
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+
+            /* Grid summary jadi 4 kolom saat cetak */
+            .summary-grid {
+                display: grid !important;
+                grid-template-columns: repeat(4, 1fr) !important;
+                gap: 12px !important;
+            }
+
+            /* Charts grid 2 kolom */
+            .charts-grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px !important;
+            }
+
+            /* Jangan potong tabel */
+            table { page-break-inside: avoid; }
+
+            /* Warna tetap tercetak */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
+
+        /* Print header hanya muncul saat cetak */
+        .print-header { display: none; }
+    </style>
+    @endpush
+
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            {{-- Header Actions --}}
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6 report-wrapper">
+
+            {{-- Header Cetak (hanya tampil saat print) --}}
+            <div class="print-header border-b-2 border-gray-800 pb-4 mb-6">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-gray-900">{{ config('app.name', 'Sistem Rekruter') }}</h1>
+                        <h2 class="text-lg font-bold text-gray-700 mt-1">Laporan Analitik & Statistik Sistem</h2>
+                        <p class="text-sm text-gray-500 mt-1">Dihasilkan pada: {{ \Carbon\Carbon::now()->translatedFormat('d F Y, H:i') }} WIB</p>
+                    </div>
+                    <div class="text-right text-xs text-gray-400">
+                        <p>Admin Panel</p>
+                        <p>PT. SAT.ECHNO</p>
+                    </div>
+                </div>
+            </div>
+
+            {{-- Header Actions (sembunyi saat cetak) --}}
             <div class="flex justify-between items-center mb-4 print:hidden">
                 <div>
                     <h3 class="text-lg font-bold text-gray-900">Analitik & Statistik Sistem</h3>
                     <p class="text-sm text-gray-500">Visualisasi data lowongan, pendaftaran, dan aktivitas lamaran.</p>
                 </div>
-                <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-xl text-sm transition shadow-sm flex items-center gap-2">
+                <a href="{{ route('admin.reports.print') }}" target="_blank"
+                   class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-xl text-sm transition shadow-sm flex items-center gap-2">
                     <i class="fas fa-print"></i> Cetak Laporan
-                </button>
+                </a>
             </div>
 
             {{-- Summary Cards --}}
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="summary-grid grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex items-center">
                     <div class="p-3 rounded-xl bg-blue-50 text-blue-600 mr-4"><i class="fas fa-briefcase text-xl"></i></div>
                     <div>
@@ -51,7 +110,7 @@
             </div>
 
             {{-- Charts Section --}}
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="charts-grid grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {{-- Line Chart --}}
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
                     <h4 class="font-bold text-gray-900 text-sm mb-4"><i class="fas fa-chart-line mr-2 text-blue-500"></i>Tren Lamaran Bulanan (12 Bulan Terakhir)</h4>

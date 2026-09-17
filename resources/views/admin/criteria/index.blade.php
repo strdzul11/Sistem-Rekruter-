@@ -49,9 +49,11 @@
                                             {{ $c->is_active ? 'Aktif' : 'Non-aktif' }}
                                         </span>
                                     </td>
-                                    <td class="py-4 px-6 text-right space-x-2">
-                                        <button class="text-blue-600 hover:text-blue-800 transition">Ubah</button>
-                                        <button class="text-red-600 hover:text-red-800 transition">Hapus</button>
+                                    <td class="py-4 px-6 text-right">
+                                        <x-action-menu>
+                                            <x-action-item icon="fas fa-edit">Ubah</x-action-item>
+                                            <x-action-item icon="fas fa-trash" danger>Hapus</x-action-item>
+                                        </x-action-menu>
                                     </td>
                                 </tr>
                             @endforeach

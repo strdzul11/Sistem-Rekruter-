@@ -14,9 +14,18 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::orderBy('name')->get();
+        $admins     = User::where('role', 'admin')->orderBy('name')->get();
+        $hrds       = User::where('role', 'hrd')->orderBy('name')->get();
+        $applicants = User::where('role', 'applicant')->orderBy('name')->get();
 
-        return view('admin.users.index', compact('users'));
+        $counts = [
+            'admin'     => $admins->count(),
+            'hrd'       => $hrds->count(),
+            'applicant' => $applicants->count(),
+            'total'     => $admins->count() + $hrds->count() + $applicants->count(),
+        ];
+
+        return view('admin.users.index', compact('admins', 'hrds', 'applicants', 'counts'));
     }
 
     public function create()

@@ -65,13 +65,11 @@
                                             {{ $t->is_active ? 'Aktif' : 'Non-aktif' }}
                                         </span>
                                     </td>
-                                    <td class="py-4 px-6 text-right space-x-3">
-                                        <a href="{{ route('admin.letter-templates.edit', $t) }}" class="text-blue-600 hover:text-blue-800 transition">Ubah</a>
-                                        <form method="POST" action="{{ route('admin.letter-templates.destroy', $t) }}" class="inline-block" onsubmit="return confirm('Apakah Anda yakin ingin menghapus template ini?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-800 transition">Hapus</button>
-                                        </form>
+                                    <td class="py-4 px-6 text-right">
+                                        <x-action-menu>
+                                            <x-action-item :href="route('admin.letter-templates.edit', $t)" icon="fas fa-edit">Ubah</x-action-item>
+                                            <x-action-item method="DELETE" :action="route('admin.letter-templates.destroy', $t)" confirm="Apakah Anda yakin ingin menghapus template ini?" icon="fas fa-trash" danger>Hapus</x-action-item>
+                                        </x-action-menu>
                                     </td>
                                 </tr>
                             @empty

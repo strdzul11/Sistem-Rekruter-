@@ -219,13 +219,11 @@
                                             {{ $app->status }}
                                         </span>
                                     </td>
-                                     <td class="py-4 px-6 text-right space-x-2">
-                                         <button type="button" @click="fetchPreview('{{ route('hrd.applications.preview', $app) }}')" class="text-gray-500 hover:text-gray-700 font-semibold text-sm">
-                                             <i class="fas fa-eye mr-1"></i>Preview
-                                         </button>
-                                         <a href="{{ route('hrd.applications.show', $app) }}" class="text-emerald-600 hover:text-emerald-800 font-semibold text-sm">
-                                             Detail
-                                         </a>
+                                     <td class="py-4 px-6 text-right">
+                                         <x-action-menu>
+                                             <x-action-item onclick="fetchPreview('{{ route('hrd.applications.preview', $app) }}')" icon="fas fa-eye">Preview</x-action-item>
+                                             <x-action-item :href="route('hrd.applications.show', $app)" icon="fas fa-external-link-alt">Detail</x-action-item>
+                                         </x-action-menu>
                                      </td>
                                 </tr>
                             @empty

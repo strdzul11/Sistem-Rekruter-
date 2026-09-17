@@ -48,13 +48,11 @@
                                     <td class="py-4 px-6">
                                         <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium uppercase {{ $job->status === 'active' ? 'bg-green-50 text-green-700' : 'bg-gray-100 text-gray-500' }}">{{ $job->status }}</span>
                                     </td>
-                                    <td class="py-4 px-6 text-right space-x-3">
-                                        <a href="{{ route('hrd.jobs.edit', $job) }}" class="text-emerald-600 hover:text-emerald-800 font-semibold"><i class="fas fa-edit mr-1"></i>Ubah</a>
-                                        <form method="POST" action="{{ route('hrd.jobs.destroy', $job) }}" class="inline" onsubmit="return confirm('Hapus lowongan ini?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-800 font-semibold"><i class="fas fa-trash mr-1"></i>Hapus</button>
-                                        </form>
+                                    <td class="py-4 px-6 text-right">
+                                        <x-action-menu>
+                                            <x-action-item :href="route('hrd.jobs.edit', $job)" icon="fas fa-edit">Ubah</x-action-item>
+                                            <x-action-item method="DELETE" :action="route('hrd.jobs.destroy', $job)" confirm="Hapus lowongan ini?" icon="fas fa-trash" danger>Hapus</x-action-item>
+                                        </x-action-menu>
                                     </td>
                                 </tr>
                             @empty

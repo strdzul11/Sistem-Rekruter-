@@ -79,9 +79,9 @@
                                         </div>
                                     </td>
                                     <td class="py-4 px-6 text-right">
-                                        <a href="{{ route('hrd.interviews.show', $interview) }}" class="text-blue-600 hover:text-blue-800 font-semibold text-xs">
-                                            <i class="fas fa-eye mr-1"></i>Detail
-                                        </a>
+                                        <x-action-menu>
+                                            <x-action-item :href="route('hrd.interviews.show', $interview)" icon="fas fa-eye">Detail</x-action-item>
+                                        </x-action-menu>
                                     </td>
                                 </tr>
                             @empty

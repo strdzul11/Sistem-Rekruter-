@@ -85,13 +85,11 @@
                                     <td class="py-4 px-6 text-gray-400 text-xs font-normal">
                                         {{ $app->created_at ? $app->created_at->format('Y-m-d H:i') : '-' }}
                                     </td>
-                                    <td class="py-4 px-6 text-right space-x-2">
-                                        <button type="button" @click="fetchPreview('{{ route('admin.applications.preview', $app) }}')" class="text-gray-500 hover:text-gray-700 font-semibold text-sm">
-                                            <i class="fas fa-eye mr-1"></i>Preview
-                                        </button>
-                                        <a href="{{ route('admin.applications.show', $app) }}" class="text-blue-600 hover:text-blue-800 font-semibold text-sm">
-                                            Detail
-                                        </a>
+                                    <td class="py-4 px-6 text-right">
+                                        <x-action-menu>
+                                            <x-action-item onclick="fetchPreview('{{ route('admin.applications.preview', $app) }}')" icon="fas fa-eye">Preview</x-action-item>
+                                            <x-action-item :href="route('admin.applications.show', $app)" icon="fas fa-external-link-alt">Detail</x-action-item>
+                                        </x-action-menu>
                                     </td>
                                 </tr>
                             @empty
